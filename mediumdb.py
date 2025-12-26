@@ -43,3 +43,18 @@ products_data = [
     ('Книга', 'Образование', 1000)
 ]
 cursor.executemany('INSERT INTO products (name, category, price) VALUES (?, ?, ?)', products_data)
+
+cursor.execute('INSERT INTO orders (user_id, product_name, price, order_date) VALUES (1, "Ноутбук", 50000, "2025-01-15")')
+cursor.execute('INSERT INTO orders (user_id, product_name, price, order_date) VALUES (2, "Смартфон", 30000, "2025-01-16")')
+
+cursor.execute('''
+SELECT u.name, u.age, u.email, o.product_name, o.price, o.order_date
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+ORDER BY u.name
+''')
+data = cursor.fetchall()
+
+print("Имя | Возраст | Email | Товар | Цена | Дата заказа")
+for row in data:
+    print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]}")
