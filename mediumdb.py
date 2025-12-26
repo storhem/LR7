@@ -29,3 +29,17 @@ CREATE TABLE IF NOT EXISTS products (
     category TEXT,
     price REAL
 )''')
+
+users_data = [
+    ('Иван Иванов', 30, 'ivan@mail.com'),
+    ('Мария Петрова', 25, 'maria@mail.com'),
+    ('Алексей Сидоров', 35, 'alex@mail.com')
+]
+cursor.executemany('INSERT INTO users (name, age, email) VALUES (?, ?, ?)', users_data)
+
+products_data = [
+    ('Ноутбук', 'Электроника', 50000),
+    ('Смартфон', 'Электроника', 30000),
+    ('Книга', 'Образование', 1000)
+]
+cursor.executemany('INSERT INTO products (name, category, price) VALUES (?, ?, ?)', products_data)
