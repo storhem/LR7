@@ -21,3 +21,11 @@ CREATE TABLE IF NOT EXISTS orders (
     order_date TEXT,
     FOREIGN KEY (user_id) REFERENCES users (id)
 )''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    category TEXT,
+    price REAL
+)''')
