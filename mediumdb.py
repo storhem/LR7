@@ -58,3 +58,10 @@ data = cursor.fetchall()
 print("Имя | Возраст | Email | Товар | Цена | Дата заказа")
 for row in data:
     print(f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]}")
+
+with open('users_orders.csv', 'w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    writer.writerow(['Имя', 'Возраст', 'Email', 'Товар', 'Цена', 'Дата заказа'])
+    writer.writerows(data)
+
+conn.close()
