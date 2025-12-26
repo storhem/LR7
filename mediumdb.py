@@ -11,3 +11,13 @@ CREATE TABLE IF NOT EXISTS users (
     age INTEGER,
     email TEXT UNIQUE
 )''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    product_name TEXT NOT NULL,
+    price REAL,
+    order_date TEXT,
+    FOREIGN KEY (user_id) REFERENCES users (id)
+)''')
