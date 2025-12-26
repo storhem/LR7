@@ -36,3 +36,34 @@ class OrderDB(Base):
     user = relationship("UserDB", back_populates="orders")
 
 Base.metadata.create_all(bind=engine)
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+    balance: float
+
+    model_config = {"from_attributes": True}
+
+class UserCreate(BaseModel):
+    name: str
+    email: str
+    balance: float = 0.0
+
+class Order(BaseModel):
+    id: int
+    product_name: str
+    amount: float
+    user_id: int
+
+    model_config = {"from_attributes": True}
+
+class OrderCreate(BaseModel):
+    product_name: str
+    amount: float
+    user_id: int
+
+class TransactionRequest(BaseModel):
+    from_user_id: int
+    to_user_id: int
+    amount: float
