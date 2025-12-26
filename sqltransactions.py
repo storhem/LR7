@@ -14,3 +14,25 @@ app = FastAPI(title="Транзакции с FastAPI и SQLAlchemy")
 
 class Base(DeclarativeBase):
     pass
+
+class UserDB(Base):
+    __tablename__ = "users"
+
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    name: Mapped[str] = mapped_column(index=True)
+    email: Mapped[str] = mapped_column(unique=True, index=True)
+    balance: Mapped[float] = mapped_column(default=0.0)
+
+    orders = relationship("OrderDB", back_populates="user")
+
+class OrderDB(Base):
+    __tablename__ = "orders"
+
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    product_name: Mapped[str] = mapped_column(index=True)
+    amount: Mapped[float] = mapped_column()
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+
+    user = relationship("UserDB", back_populates="orders")
+
+Base.metadata.create_all(bind=engine)
